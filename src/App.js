@@ -4,7 +4,8 @@ import{ BrowserRouter as Router,
   Route
   } from "react-router-dom";
 import Home from "./Components/Home/Home";
-import Auth from "./Components/Auth/Auth";
+import SignIn from "./Components/SignIn/SignIn";
+import SignUp from "./Components/SignUp/SignUp";
 import Account from "./Components/Account/Account";
 
 function App() {
@@ -14,8 +15,11 @@ function App() {
         <Route path="/account">
           <Account/>
         </Route>
+        <Route path="/signup">
+          <SignUp/>
+        </Route>
         <Route path="/login">
-          <Auth/>
+          <SignIn/>
         </Route>
         <Route path="/">
           <Home/>
