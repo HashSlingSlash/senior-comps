@@ -1,32 +1,27 @@
 import './App.css';
-import{ BrowserRouter as Router, 
-  Switch,
-  Route
-  } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import SignIn from "./Components/SignIn/SignIn";
-import SignUp from "./Components/SignUp/SignUp";
-import Account from "./Components/Account/Account";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { SignUp } from './Components/SignUp/SignUp'
+import { Home } from './Components/Home/Home'
+import { AuthProvider } from './Contexts/Auth'
+import { SignIn } from './Components/SignIn/SignIn'
+import { Account } from './Components/Account/Account'
+import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
+import { NonUserRoute } from './Components/NonUserRoute/NonUserRoute';
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/account">
-          <Account/>
-        </Route>
-        <Route path="/signup">
-          <SignUp/>
-        </Route>
-        <Route path="/login">
-          <SignIn/>
-        </Route>
-        <Route path="/">
-          <Home/>
-        </Route>
-      </Switch>
-    </Router>
-  );
+    <div>
+      <h1>supabase-auth-react</h1>
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <PrivateRoute exact path="/" component={Home} />
+            <NonUserRoute exact path="/signup" component={SignUp} />
+            <NonUserRoute exact path="/signin" component={SignIn} />
+            <PrivateRoute exact path="/account" component={Account} />
+          </Switch>
+        </AuthProvider>
+      </Router>
+    </div>
+  )
 }
-
-export default App;

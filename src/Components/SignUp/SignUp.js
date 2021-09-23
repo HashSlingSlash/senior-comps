@@ -1,91 +1,51 @@
-import React from 'react'
-import { supabase } from '../../supabaseClient'
-import {withRouter} from "react-router";
+import { useRef, useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 
-class SignUp extends React.Component{
-    constructor(){
-        super();
-        this._handleSignUp = this._handleSignUp.bind(this);
-        this._setLoading = this._setLoading.bind(this);
-        this._setEmail = this._setEmail.bind(this);
-        this._setPassword = this._setPassword.bind(this);
-        this.state={
-            loading: false,
-            email: '',
-            password: ''
-        }
-    }
+import { useAuth } from '../../Contexts/Auth'
 
-    _setLoading(val){
-        this.setState({
-            loading: val
-        });
-    }
+export function SignUp() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
 
-    _setEmail(val){
-        this.setState({
-            email: val
-        });
-    }
+  const [error, setError] = useState(null)
 
-    _setPassword(val){
-        this.setState({
-            password: val
-        });
-    }
+  const { signUp } = useAuth()
+  const history = useHistory()
 
-    _handleSignUp = async (email, password) => {
-        try {
-          this._setLoading(true)
-          const { error } = await supabase.auth.signUp({ email, password })
-          if (error) throw error
-          alert('Check your email for the login link!')
-        } catch (error) {
-          alert(error.error_description || error.message)
-        } finally {
-          this._setLoading(false)
-          window.location.href = "/Account"
-        }
-      }
+  async function handleSubmit(e) {
+    e.preventDefault()
 
-    render(){
-        return(
-            <div className="row flex flex-center">
-            <div className="col-6 form-widget">
-              <h1 className="header">Supabase + React</h1>
-              <p className="description">Sign up via with your email and password</p>
-              <div>
-                <input
-                  className="inputField"
-                  type="email"
-                  placeholder="Your email"
-                  value={this.state.email}
-                  onChange={(e) => this._setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <input
-                  className="inputField"
-                  type="password"
-                  placeholder="password"
-                  onChange={(e) => this._setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    this._handleSignUp(this.state.email, this.state.password)
-                  }}
-                  className={'button block'}
-                  disabled={this.state.loading}
-                >
-                  {this.state.loading ? <span>Loading</span> : <span>Send magic link</span>}
-                </button>
-              </div>
-            </div>
-          </div>
-        )
-    }
-}
-export default withRouter(SignUp);
+    const email = emailRef.current.value
+    const password = passwordRef.current.value
+
+    const { error } = await signUp({ email, password })
+
+    if (error) return setError(error)
+
+    history.push('/')
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>{error && JSON.stringify(error)}</div>
+
+        <label htmlFor="input-email">Email</label>
+        <input id="input-email" type="email" ref={emailRef} />
+
+        <label htmlFor="input-password">Password</label>
+        <input id="input-password" type="password" ref={passwordRef} />
+
+        <br />
+
+        <button type="submit">Sign up</button>
+      </form>
+
+      <br/>
+
+      <p>
+        Already have an account? <Link to="/login">Log In</Link>
+      </p>
+    </div>
+  )
+};
