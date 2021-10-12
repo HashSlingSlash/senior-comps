@@ -90,7 +90,7 @@ export function Account({ session }) {
         />
       <div>
         <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={supabase.auth.user.email} disabled />
+        <input id="email" type="text" value={user.email} disabled />
       </div>
       <div>
         <label htmlFor="username">Name</label>

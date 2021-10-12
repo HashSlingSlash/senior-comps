@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import { useAuth } from '../../Contexts/Auth'
 
@@ -26,7 +26,7 @@ export function SignIn() {
   }
 
   return (
-    <>
+    <div>
       <form onSubmit={handleSubmit}>
         <div>{error && JSON.stringify(error)}</div>
 
@@ -42,7 +42,10 @@ export function SignIn() {
       </form>
 
       <br/>
-    </>
+      <p>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
+      </p>
+    </div>
   )
 }
 ;

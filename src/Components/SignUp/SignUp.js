@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-
+import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
 
 export function SignUp() {
@@ -18,10 +18,21 @@ export function SignUp() {
     const email = emailRef.current.value
     const password = passwordRef.current.value
 
-    const { error } = await signUp({ email, password })
+    const { user, session, error } = await signUp({ email, password })
 
     if (error) return setError(error)
+    
+    const { data, upserterror } = await supabase.from('profiles').upsert({
+      id: user.id,
+      username: email,
+      website: '',
+      avatar_url: '',
+      email: email,
+      updated_at: new Date()});
 
+    if (upserterror) return setError(upserterror)
+
+    console.log(data)
     history.push('/')
   }
 
@@ -44,7 +55,7 @@ export function SignUp() {
       <br/>
 
       <p>
-        Already have an account? <Link to="/login">Log In</Link>
+        Already have an account? <Link to="/signin">Log In</Link>
       </p>
     </div>
   )
