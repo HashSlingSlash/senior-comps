@@ -1,0 +1,7 @@
+.card-body{
+    text-align: center;
+}
+
+.title, p, span{
+    color: black;
+}

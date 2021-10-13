@@ -11,7 +11,7 @@ import { NonUserRoute } from './Components/NonUserRoute/NonUserRoute';
 export default function App() {
   return (
     <div>
-      <h1>supabase-auth-react</h1>
+      <h1>Senior Comps</h1>
       <Router>
         <AuthProvider>
           <Switch>

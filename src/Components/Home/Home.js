@@ -1,3 +1,4 @@
+import './Home.css'
 import { useHistory } from 'react-router'
 import { useAuth } from '../../Contexts/Auth'
 import { useEffect, useState } from 'react'
@@ -42,7 +43,7 @@ export function Home() {
 
   return (
     <div>
-      <p>Welcome, {user?.id}!</p>
+      <p className="user-welcome">Welcome, {user?.id}!</p>
       <button onClick={handleSignOut}>Sign out</button>
       <h1>Basketball Courts Near You</h1>
       {courts ?
