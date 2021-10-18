@@ -7,6 +7,8 @@ import { SignIn } from './Components/SignIn/SignIn'
 import { Account } from './Components/Account/Account'
 import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
 import { NonUserRoute } from './Components/NonUserRoute/NonUserRoute';
+import { Show } from './Components/Show/Show';
+import { Review } from './Components/Review/Review';
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
             <NonUserRoute exact path="/signup" component={SignUp} />
             <NonUserRoute exact path="/signin" component={SignIn} />
             <PrivateRoute exact path="/account" component={Account} />
+            <PrivateRoute path="/courts/:courtID" component={Show} />
+            <PrivateRoute path="/reviews/:courtID" component={Review} />
           </Switch>
         </AuthProvider>
       </Router>

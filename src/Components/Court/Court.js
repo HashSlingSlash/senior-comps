@@ -23,7 +23,7 @@ export function Court(props) {
                 <p>Rating: {props.court.rating}/5</p>
                 <p>Address: <span>{props.court.location}</span></p>
                 </Card.Text>
-                <Button variant="primary" onClick={_clickedCourt} value={props.court.id}>Go somewhere</Button>
+                <Button variant="primary" onClick={_clickedCourt} value={props.court.id}>More Information</Button>
             </Card.Body>
         </Card>
     </div>

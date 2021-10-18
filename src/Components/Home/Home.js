@@ -47,7 +47,7 @@ export function Home() {
       <button onClick={handleSignOut}>Sign out</button>
       <h1>Basketball Courts Near You</h1>
       {courts ?
-      <div className="displayCourts"> 
+      <div className="display-courts"> 
       {
         courts.map(court => {
           return <Court key={court.id} court={court} />

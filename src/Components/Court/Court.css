@@ -5,3 +5,7 @@
 .title, p, span{
     color: black;
 }
+
+.court-card{
+    width: 18rem;
+}

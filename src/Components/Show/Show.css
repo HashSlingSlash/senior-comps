@@ -1,0 +1,19 @@
+body{
+    text-align: center;
+}
+
+.row{
+    justify-content: center;
+}
+
+h4{
+    color: black;
+}
+
+.review-button{
+    margin-top: 1em;
+}
+
+Comment{
+    margin-bottom: 1em;
+}
