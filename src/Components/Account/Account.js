@@ -80,14 +80,7 @@ export function Account({ session }) {
 
   return (
     <div className="form-widget">
-        <Avatar
-            url={avatar_url}
-            size={150}
-            onUpload={(url) => {
-        setAvatarUrl(url)
-        updateProfile({ username, website, avatar_url: url })
-            }}
-        />
+      <label></label>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={user.email} disabled />

@@ -9,6 +9,8 @@ import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
 import { NonUserRoute } from './Components/NonUserRoute/NonUserRoute';
 import { Show } from './Components/Show/Show';
 import { Review } from './Components/Review/Review';
+import { DisplayProfiles } from './Components/DisplayProfiles/DisplayProfiles';
+import { Bio } from './Components/Bio/Bio';
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
             <PrivateRoute exact path="/account" component={Account} />
             <PrivateRoute path="/courts/:courtID" component={Show} />
             <PrivateRoute path="/reviews/:courtID" component={Review} />
+            <PrivateRoute exact path="/users" component={DisplayProfiles} />
+            <PrivateRoute path="/users/:userID" component={Bio} />
           </Switch>
         </AuthProvider>
       </Router>
