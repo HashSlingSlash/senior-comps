@@ -1,11 +1,16 @@
+import "./SignUp.css"
 import { useRef, useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
+import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 
 export function SignUp() {
   const emailRef = useRef()
   const passwordRef = useRef()
+  const usernameRef = useRef()
+  const avatarRef = useRef()
+  const skillRef = useRef()
 
   const [error, setError] = useState(null)
 
@@ -17,6 +22,9 @@ export function SignUp() {
 
     const email = emailRef.current.value
     const password = passwordRef.current.value
+    const username = usernameRef.current.value
+    const avatar = avatarRef.current.value
+    const skill_level = skillRef.current.value
 
     const { user, session, error } = await signUp({ email, password })
 
@@ -24,9 +32,9 @@ export function SignUp() {
     
     const { data, upserterror } = await supabase.from('profiles').upsert({
       id: user.id,
-      username: email,
-      website: '',
-      avatar_url: '',
+      username: username,
+      skill_level: skill_level,
+      avatar_url: avatar,
       email: email,
       updated_at: new Date()});
 
@@ -38,25 +46,47 @@ export function SignUp() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>{error && JSON.stringify(error)}</div>
+      <Row>
+        <Col className="sign-up-form">
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicTitle">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="email" ref={emailRef} />
+            </Form.Group>
 
-        <label htmlFor="input-email">Email</label>
-        <input id="input-email" type="email" ref={emailRef} />
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Username" ref={usernameRef} />
+            </Form.Group>
 
-        <label htmlFor="input-password">Password</label>
-        <input id="input-password" type="password" ref={passwordRef} />
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" ref={passwordRef} />
+            </Form.Group>
 
-        <br />
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Avatar URL</Form.Label>
+                <Form.Control type="text" placeholder="avatar.url" ref={avatarRef} />
+            </Form.Group>
 
-        <button type="submit">Sign up</button>
-      </form>
+            <Form.Label>Skill Level</Form.Label>
+            <Form.Select aria-label="Skill Level" ref={skillRef} className="mb-3">
+                <option value="1">One (Worst)</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five (Best)</option>
+            </Form.Select>
 
-      <br/>
-
+            <Button variant="primary" type="submit">
+            Submit
+            </Button>
+        </Form>
       <p>
         Already have an account? <Link to="/signin">Log In</Link>
       </p>
+      </Col>
+      </Row>
     </div>
   )
 };

@@ -1,5 +1,7 @@
+import "./SignIn.css"
 import { useRef, useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 
 import { useAuth } from '../../Contexts/Auth'
 
@@ -27,24 +29,29 @@ export function SignIn() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <Row>
+        <Col className="sign-in-form">
+        <Form onSubmit={handleSubmit}>
         <div>{error && JSON.stringify(error)}</div>
+            <Form.Group className="mb-3" controlId="formBasicTitle">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="email" ref={emailRef} />
+            </Form.Group>
 
-        <label htmlFor="input-email">Email</label>
-        <input id="input-email" type="email" ref={emailRef} />
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" ref={passwordRef} />
+            </Form.Group>
 
-        <label htmlFor="input-password">Password</label>
-        <input id="input-password" type="password" ref={passwordRef} />
-
-        <br />
-
-        <button type="submit">Sign in</button>
-      </form>
-
-      <br/>
+            <Button variant="primary" type="submit">
+            Submit
+            </Button>
+        </Form>
       <p>
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
+      </Col>
+      </Row>
     </div>
   )
 }
