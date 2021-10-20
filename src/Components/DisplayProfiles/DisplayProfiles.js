@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
 import { Profile } from "../Profile/Profile"
+import { Header } from "../Header/Header"
 
 export function DisplayProfiles({ session }) {
   const [loading, setLoading] = useState(true)
@@ -39,6 +40,7 @@ export function DisplayProfiles({ session }) {
 
   return (
       <div>
+      <Header></Header>
           <h1>Other Users:</h1>
       <div className="profiles-section">
           {loading ?

@@ -6,6 +6,7 @@ import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
 import { useHistory } from 'react-router'
 import { useParams } from 'react-router';
+import { Header } from '../Header/Header';
 
 export function Bio() {
     let { userID } = useParams();
@@ -32,6 +33,7 @@ export function Bio() {
 
   return (
     <div className="show-profile">
+        <Header></Header>
         <Container>
             <Row>
                 {profile ?

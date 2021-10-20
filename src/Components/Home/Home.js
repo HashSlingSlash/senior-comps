@@ -3,20 +3,13 @@ import { useHistory } from 'react-router'
 import { useAuth } from '../../Contexts/Auth'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../supabaseClient'
+import { Button } from 'react-bootstrap'
+import { Header } from '../Header/Header'
 
 import { Court } from '../Court/Court';
 
 export function Home() {
   let [courts, setCourts] = useState();
-
-  const { user, signOut } = useAuth()
-  const history = useHistory()
-
-  async function handleSignOut() {
-    await signOut()
-
-    history.push('/signin')
-  }
 
   useEffect(() => {
     getCourts()
@@ -43,8 +36,7 @@ export function Home() {
 
   return (
     <div>
-      <p className="user-welcome">Welcome, {user?.id}!</p>
-      <button onClick={handleSignOut}>Sign out</button>
+      <Header></Header>
       <h1>Basketball Courts Near You</h1>
       {courts ?
       <div className="display-courts"> 

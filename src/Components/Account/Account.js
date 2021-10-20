@@ -80,7 +80,6 @@ export function Account({ session }) {
 
   return (
     <div className="form-widget">
-      <label></label>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={user.email} disabled />

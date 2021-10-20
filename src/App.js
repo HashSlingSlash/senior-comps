@@ -1,8 +1,8 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import { SignUp } from './Components/SignUp/SignUp'
 import { Home } from './Components/Home/Home'
-import { AuthProvider } from './Contexts/Auth'
+import { AuthProvider, useAuth } from './Contexts/Auth'
 import { SignIn } from './Components/SignIn/SignIn'
 import { Account } from './Components/Account/Account'
 import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
@@ -11,11 +11,14 @@ import { Show } from './Components/Show/Show';
 import { Review } from './Components/Review/Review';
 import { DisplayProfiles } from './Components/DisplayProfiles/DisplayProfiles';
 import { Bio } from './Components/Bio/Bio';
+import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+
+
 
 export default function App() {
+
   return (
     <div>
-      <h1>Senior Comps</h1>
       <Router>
         <AuthProvider>
           <Switch>

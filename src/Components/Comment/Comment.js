@@ -2,7 +2,6 @@ import './Comment.css'
 import React from 'react'
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 
-
 export function Comment(props) {
 
   return (

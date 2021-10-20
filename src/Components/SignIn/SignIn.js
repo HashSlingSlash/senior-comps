@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 
 import { useAuth } from '../../Contexts/Auth'
+import { Header } from "../Header/Header";
 
 export function SignIn() {
   const emailRef = useRef()
@@ -29,6 +30,7 @@ export function SignIn() {
 
   return (
     <div>
+      <Header></Header>
       <Row>
         <Col className="sign-in-form">
         <Form onSubmit={handleSubmit}>

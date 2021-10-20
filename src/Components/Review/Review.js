@@ -3,6 +3,7 @@ import { useHistory, Link, useParams } from 'react-router-dom'
 import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
 import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
+import { Header } from '../Header/Header';
 
 export function Review(props) {
     const [error, setError] = useState(null)
@@ -39,6 +40,7 @@ export function Review(props) {
 
   return (
     <div>
+        <Header></Header>
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicTitle">
                 <Form.Label>Title</Form.Label>

@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom'
 import { supabase } from '../../supabaseClient'
 import { useAuth } from '../../Contexts/Auth'
 import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
+import { Header } from "../Header/Header"
 
 export function SignUp() {
   const emailRef = useRef()
@@ -46,6 +47,7 @@ export function SignUp() {
 
   return (
     <div>
+      <Header></Header>
       <Row>
         <Col className="sign-up-form">
         <Form onSubmit={handleSubmit}>

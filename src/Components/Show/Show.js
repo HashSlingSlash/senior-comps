@@ -7,6 +7,7 @@ import { useAuth } from '../../Contexts/Auth'
 import { useHistory } from 'react-router'
 import { useParams } from 'react-router';
 import { Comment } from '../Comment/Comment';
+import { Header } from '../Header/Header';
 
 export function Show() {
     let { courtID } = useParams();
@@ -46,6 +47,7 @@ export function Show() {
 
   return (
     <div className="show-court">
+        <Header></Header>
         <Container>
             <Row>
                 {court ?
