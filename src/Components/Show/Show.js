@@ -13,11 +13,13 @@ export function Show() {
     let { courtID } = useParams();
     const [court, setCourt] = useState(null);
     const [reviews, setReviews] = useState(null);
+    const [rating, setRating] = useState(null);
 
     useEffect(() => {
         getCourt();
         getReviews();
-    })
+        getRating()
+    }, [])
 
     async function getCourt(){
         console.log(courtID);
@@ -45,6 +47,27 @@ export function Show() {
         }
     }
 
+    async function getRating() {
+        try {
+          let { data, error, status } = await supabase
+            .from('reviews')
+            .select('rating')
+            .eq("court_id", courtID)
+            
+          if (error && status !== 406) {
+            throw error
+          }
+    
+          if (data) {
+              let total = 0
+              data.forEach(rating => total += rating.rating);
+              setRating(Math.round((total / data.length) * 10) / 10)
+          }
+        } catch (error) {
+          alert(error.message)
+        }
+      }
+
   return (
     <div className="show-court">
         <Header></Header>
@@ -56,7 +79,7 @@ export function Show() {
                     <Card.Body className="card-body">
                     <Card.Title className="title">{court.name}</Card.Title>
                     <Card.Text>
-                    <p>Rating: {court.rating}/5</p>
+                    <p>Rating: {rating}/5</p>
                     <p>Address: <span>{court.location}</span></p>
                     <h4>Reviews:</h4>
                     {reviews ?

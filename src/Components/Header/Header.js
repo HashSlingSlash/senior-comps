@@ -27,7 +27,7 @@ export function Header(){
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/users">Other Players</Nav.Link>
                         <NavDropdown title="More Options" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/">Action</NavDropdown.Item>
+                            <NavDropdown.Item href="/account">My Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/">Another action</NavDropdown.Item>
                             <NavDropdown.Item href="/">Something</NavDropdown.Item>
                             <NavDropdown.Divider />

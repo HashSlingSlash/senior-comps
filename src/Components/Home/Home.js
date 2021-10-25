@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../../supabaseClient'
 import { Button } from 'react-bootstrap'
 import { Header } from '../Header/Header'
-
 import { Court } from '../Court/Court';
 
 export function Home() {
   let [courts, setCourts] = useState();
+  let distances = {}
 
   useEffect(() => {
     getCourts()
-  })
+  }, [])
 
   async function getCourts() {
     try {
@@ -29,26 +29,60 @@ export function Home() {
         console.log(data)
         setCourts(data)
       }
-    } catch (error) {
+    }
+    catch (error) {
       alert(error.message)
     }
   }
+
+  function setDistance(court, distance){
+    distances[court] = distance
+  }
+
+  function sortCourts(){
+    // Create items array
+    var items = Object.keys(distances).map(function(key) {
+      return [key, distances[key]];
+    });
+    
+    // Sort the array based on the second element
+    items.sort(function(first, second) {
+      return first[1] - second[1];
+    });
+
+    console.log(items)
+
+    let temp = []
+    items.forEach(item => {
+      courts.forEach(court => {
+        if(item[0] == court.name){
+          temp.push(court)
+        }
+      })
+    })
+    console.log(temp)
+    setCourts(temp)
+  }
+
 
   return (
     <div>
       <Header></Header>
       <h1>Basketball Courts Near You</h1>
+
       {courts ?
       <div className="display-courts"> 
       {
         courts.map(court => {
-          return <Court key={court.id} court={court} />
+          return <Court key={court.id} court={court} setDistance={setDistance}/>
         })
       }
+      <Button onClick={sortCourts}>Distances</Button>
       </div>
       :
       <h1>No Courts Near You</h1>
     }
-    </div>
+ 
+  </div>
   )}
 

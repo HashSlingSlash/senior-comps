@@ -14,7 +14,7 @@ export function Bio() {
 
     useEffect(() => {
         getProfile()
-    })
+    }, [])
 
     async function getProfile(){
         console.log(userID);
