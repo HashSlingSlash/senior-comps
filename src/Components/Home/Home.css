@@ -3,6 +3,9 @@
 }
 
 .display-courts{
-    display: flex;
-    justify-content: space-evenly;
+    display: inline-block;
+}
+
+.court-card{
+    margin-bottom: 2rem;
 }

@@ -1,4 +1,7 @@
 .profiles-section{
-    display: flex;
-    justify-content: space-evenly;
+    display: inline-block;
+}
+
+.profile-card{
+    margin-bottom: 2rem;
 }

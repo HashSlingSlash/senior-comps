@@ -1,3 +1,4 @@
+import "./Account.css"
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../../supabaseClient'
@@ -80,7 +81,7 @@ export function Account({ session }) {
     <div>
     <Header></Header>
     <Row>
-      <Col className="Profile">
+      <Col className="profile">
       <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicTitle">
               <Form.Label>Email</Form.Label>

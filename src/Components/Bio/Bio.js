@@ -37,19 +37,18 @@ export function Bio() {
         <Container>
             <Row>
                 {profile ?
-                <Card style={{ width: '30rem' }}>
-                    <Card.Img variant="top" src={profile.avatar_url} />
+                <Card className="profile-card">
+                    <Card.Img variant="top" src={profile.avatar_url} className="prof-img"/>
                     <Card.Body className="card-body">
                     <Card.Title className="title">{profile.username}</Card.Title>
                     <Card.Text>
                     <p>Email Address: <span>{profile.email}</span></p>
                     </Card.Text>
                 </Card.Body>
-                <Button variant="primary" href="/users">Go Back</Button>
                 </Card>
                     :
                 <p>No Profile</p>
-                }                
+                }
             </Row>
         </Container>
     </div>

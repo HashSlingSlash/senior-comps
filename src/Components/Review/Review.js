@@ -1,3 +1,4 @@
+import "./Review.css"
 import { useRef, useState } from 'react'
 import { useHistory, Link, useParams } from 'react-router-dom'
 import { Card, Button, Container, Row, Col, Form } from "react-bootstrap";
@@ -41,7 +42,9 @@ export function Review(props) {
   return (
     <div>
         <Header></Header>
-        <Form onSubmit={handleSubmit}>
+        <Row>
+            <Col className="review-form">
+            <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicTitle">
                 <Form.Label>Title</Form.Label>
                 <Form.Control type="text" placeholder="Review Title" ref={titleRef} />
@@ -49,7 +52,7 @@ export function Review(props) {
 
             <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Review</Form.Label>
-                <Form.Control type="textarea" placeholder="Review..." ref={textRef} />
+                <Form.Control type="text" as="textarea" rows={5} placeholder="Review..." ref={textRef}/>
             </Form.Group>
             <Form.Select aria-label="Rating" ref={ratingRef}>
                 <option value="1">One (Worst)</option>
@@ -58,10 +61,12 @@ export function Review(props) {
                 <option value="4">Four</option>
                 <option value="5">Five (Best)</option>
             </Form.Select>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className="submit-button">
             Submit
             </Button>
-        </Form>
+            </Form>
+            </Col>
+        </Row>
     </div>
   )
 }

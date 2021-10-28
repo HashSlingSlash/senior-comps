@@ -61,7 +61,12 @@ export function Show() {
           if (data) {
               let total = 0
               data.forEach(rating => total += rating.rating);
-              setRating(Math.round((total / data.length) * 10) / 10)
+              if (total > 0){
+                setRating(Math.round((total / data.length) * 10) / 10)
+              }
+              else{
+                  setRating(0)
+              }
           }
         } catch (error) {
           alert(error.message)
@@ -74,13 +79,20 @@ export function Show() {
         <Container>
             <Row>
                 {court ?
-                <Card style={{ width: '30rem' }}>
-                    <Card.Img variant="top" src={court.photo} />
+                <Card className="court-card">
+                    <Card.Img variant="top" src={court.photo} className="court-img"/>
                     <Card.Body className="card-body">
                     <Card.Title className="title">{court.name}</Card.Title>
                     <Card.Text>
                     <p>Rating: {rating}/5</p>
                     <p>Address: <span>{court.location}</span></p>
+                    <Button variant="warning" href={"/reviews/" + courtID} className="review-button">Leave a Review</Button>
+                    </Card.Text>
+                </Card.Body>
+                </Card>
+                    :
+                <p>No Court</p>
+                }
                     <h4>Reviews:</h4>
                     {reviews ?
                     <div className="display-reviews"> 
@@ -93,14 +105,7 @@ export function Show() {
                     :
                     <h1>No Reviews Yet</h1>
                     }
-                    <Button variant="warning" href={"/reviews/" + courtID} className="review-button">Leave a Review</Button>
-                    </Card.Text>
-                </Card.Body>
-                <Button variant="primary" href="/">Go Back</Button>
-                </Card>
-                    :
-                <p>No Court</p>
-                }                
+                <Button variant="primary" href="/" className="back-button">Go Back</Button>                
             </Row>
         </Container>
     </div>

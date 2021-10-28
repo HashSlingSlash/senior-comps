@@ -68,16 +68,16 @@ export function Home() {
   return (
     <div>
       <Header></Header>
-      <h1>Basketball Courts Near You</h1>
+      <h1>Basketball Courts</h1>
 
       {courts ?
       <div className="display-courts"> 
+          <Button onClick={sortCourts} variant="success" className="mb-2 mt-2">See Courts Near Me</Button>
       {
         courts.map(court => {
-          return <Court key={court.id} court={court} setDistance={setDistance}/>
+          return <Court key={court.id} court={court} setDistance={setDistance} className="mb-2"/>
         })
       }
-      <Button onClick={sortCourts}>Distances</Button>
       </div>
       :
       <h1>No Courts Near You</h1>

@@ -35,8 +35,12 @@ export function Court(props) {
           if (data) {
               let total = 0
               data.forEach(rating => total += rating.rating);
-              setRating(Math.round((total / data.length) * 10) / 10)
-          }
+              if (total > 0){
+                setRating(Math.round((total / data.length) * 10) / 10)
+              }
+              else{
+                  setRating(0)
+              }          }
         } catch (error) {
           alert(error.message)
         }
