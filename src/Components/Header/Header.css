@@ -1,7 +1,5 @@
-.nav-items{
-    display: flex;
-}
-
-#nav-logout{
-    margin-left: 40em;
+@media (min-width: 992px){
+    .nav-items {
+        display: flex;
+    }
 }
