@@ -48,9 +48,11 @@ export function Court(props) {
 
       function getLocation() {
         if (navigator.geolocation) {
+          props.setLoading(true)
           navigator.geolocation.getCurrentPosition((pos) =>{
             setUserLat(pos.coords.latitude)
             setUserLong(pos.coords.longitude)
+            props.setLoading(false)
           });
         } 
       }
@@ -100,7 +102,9 @@ export function Court(props) {
              origins: [{lat: userLat, lng: userLong}],
              travelMode: "DRIVING"
            }}
-           callback = {(response) => {props.setDistance(props.court.name, response.rows[0].elements[0].distance.value)}}
+           callback = {(response) => {
+             props.setDistance(props.court.name, response.rows[0].elements[0].distance.value)
+            }}
            />
           </GoogleMap>
         </LoadScript>

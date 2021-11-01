@@ -9,6 +9,7 @@ import { Court } from '../Court/Court';
 
 export function Home() {
   let [courts, setCourts] = useState();
+  let [loading, setLoading] = useState(true);
   let distances = {}
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export function Home() {
 
   async function getCourts() {
     try {
+      setLoading(true)
       let { data, error, status } = await supabase
         .from('courts')
         .select()
@@ -28,6 +30,7 @@ export function Home() {
       if (data) {
         console.log(data)
         setCourts(data)
+        setLoading(false)
       }
     }
     catch (error) {
@@ -37,6 +40,7 @@ export function Home() {
 
   function setDistance(court, distance){
     distances[court] = distance
+    setLoading(false)
   }
 
   function sortCourts(){
@@ -72,10 +76,13 @@ export function Home() {
 
       {courts ?
       <div className="display-courts"> 
+        {!loading ?
           <Button onClick={sortCourts} variant="success" className="mb-2 mt-2">See Courts Near Me</Button>
+            :
+          ""}
       {
         courts.map(court => {
-          return <Court key={court.id} court={court} setDistance={setDistance} className="mb-2"/>
+          return <Court key={court.id} court={court} setDistance={setDistance} className="mb-2" setLoading={setLoading}/>
         })
       }
       </div>
