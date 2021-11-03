@@ -8,17 +8,20 @@ import { useHistory } from 'react-router'
 import { useParams } from 'react-router';
 import { Comment } from '../Comment/Comment';
 import { Header } from '../Header/Header';
+import { DisplayCheckIn } from '../DisplayCheckIn/DisplayCheckIn';
 
 export function Show() {
     let { courtID } = useParams();
     const [court, setCourt] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [rating, setRating] = useState(null);
+    const [ checkIns, setCheckIns ] = useState(null)
 
     useEffect(() => {
         getCourt();
         getReviews();
-        getRating()
+        getRating();
+        getCheckIns();
     }, [])
 
     async function getCourt(){
@@ -36,12 +39,27 @@ export function Show() {
         }
     }
 
+    async function getCheckIns(){
+        let { data, error, status } = await supabase
+        .from('checkins')
+        .select()
+        .eq('court_id', courtID)
+        .order("created_at", {ascending: false})
+        .limit(5)
+
+        if(data){
+            setCheckIns(data)
+        }
+    }
+
     async function getReviews(){
         let { data, error, status } = await supabase
         .from('reviews')
         .select()
         .eq('court_id', courtID)
-
+        .order("created_at", {ascending: false})
+        .limit(5)
+        
         if(data){
             setReviews(data)
         }
@@ -87,6 +105,7 @@ export function Show() {
                     <p>Rating: {rating}/5</p>
                     <p>Address: <span>{court.location}</span></p>
                     <Button variant="warning" href={"/reviews/" + courtID} className="review-button">Leave a Review</Button>
+                    <Button variant="success" href={"/checkin/" + courtID} className="review-button">Check In Here</Button>
                     </Card.Text>
                 </Card.Body>
                 </Card>
@@ -99,6 +118,18 @@ export function Show() {
                     {
                         reviews.map(review => {
                         return <Comment key={review.id} review={review} />
+                        })
+                    }
+                    </div>
+                    :
+                    <h1>No Reviews Yet</h1>
+                    }
+                    <h4>Check Ins:</h4>
+                    {checkIns ?
+                    <div className="display-reviews"> 
+                    {
+                        checkIns.map(checkIn => {
+                        return <DisplayCheckIn key={checkIn.id} checkIn={checkIn} />
                         })
                     }
                     </div>

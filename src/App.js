@@ -11,8 +11,7 @@ import { Show } from './Components/Show/Show';
 import { Review } from './Components/Review/Review';
 import { DisplayProfiles } from './Components/DisplayProfiles/DisplayProfiles';
 import { Bio } from './Components/Bio/Bio';
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
-
+import { CheckIn } from './Components/CheckIn/CheckIn';
 
 
 export default function App() {
@@ -30,6 +29,7 @@ export default function App() {
             <PrivateRoute path="/reviews/:courtID" component={Review} />
             <PrivateRoute exact path="/users" component={DisplayProfiles} />
             <PrivateRoute path="/users/:userID" component={Bio} />
+            <PrivateRoute path="/checkin/:courtID" component={CheckIn} />
           </Switch>
         </AuthProvider>
       </Router>
