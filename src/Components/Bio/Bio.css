@@ -1,8 +1,12 @@
 .profile-card{
-    width: auto;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .prof-img{
-    margin-top: 1rem;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
     height: 50%;
+    width: auto;
 }

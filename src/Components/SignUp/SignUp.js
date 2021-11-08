@@ -12,6 +12,8 @@ export function SignUp() {
   const usernameRef = useRef()
   const avatarRef = useRef()
   const skillRef = useRef()
+  const bioRef = useRef()
+  const contactRef = useRef()
 
   const [error, setError] = useState(null)
 
@@ -26,6 +28,8 @@ export function SignUp() {
     const username = usernameRef.current.value
     const avatar = avatarRef.current.value
     const skill_level = skillRef.current.value
+    const bio = bioRef.current.value
+    const contactInfo = contactRef.current.value
 
     const { user, session, error } = await signUp({ email, password })
 
@@ -37,6 +41,8 @@ export function SignUp() {
       skill_level: skill_level,
       avatar_url: avatar,
       email: email,
+      bio: bio,
+      contact_information: contactInfo,
       updated_at: new Date()});
 
     if (upserterror) return setError(upserterror)
@@ -67,6 +73,11 @@ export function SignUp() {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Bio</Form.Label>
+              <Form.Control type="text" as="textarea" rows={5} placeholder="I am a former division 3 college basketball player..." ref={bioRef} />
+          </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Avatar URL</Form.Label>
                 <Form.Control type="text" placeholder="avatar.url" ref={avatarRef} />
             </Form.Group>
@@ -79,6 +90,11 @@ export function SignUp() {
                 <option value="4">Four</option>
                 <option value="5">Five (Best)</option>
             </Form.Select>
+
+            <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Contact Information</Form.Label>
+                <Form.Control type="text" as="textarea" rows={5} placeholder="email: test@gmail.com, phone: 123-456-7890" ref={contactRef} />
+            </Form.Group>
 
             <Button variant="primary" type="submit">
             Submit

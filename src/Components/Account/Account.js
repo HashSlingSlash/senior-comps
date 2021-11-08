@@ -13,11 +13,15 @@ export function Account({ session }) {
   const [email, setEmail] = useState(null)
   const [loading, setLoading] = useState(null)
   const [error, setError] = useState(null)
+  const [bio, setBio] = useState(null)
+  const [contactInfo, setContactInfo] = useState(null)
 
   const emailRef = useRef()
   const usernameRef = useRef()
   const avatarRef = useRef()
   const skillRef = useRef()
+  const bioRef = useRef()
+  const contactRef = useRef()
 
   const { user, signOut } = useAuth()
   const history = useHistory()
@@ -44,6 +48,8 @@ export function Account({ session }) {
         setUsername(data.username)
         setEmail(data.email)
         setAvatar(data.avatar_url)
+        setBio(data.bio)
+        setContactInfo(data.contact_information)
       }
     } catch (error) {
       alert(error.message)
@@ -59,6 +65,8 @@ export function Account({ session }) {
     const avatar = avatarRef.current.value
     const skill_level = skillRef.current.value
     const username = usernameRef.current.value
+    const bio = bioRef.current.value
+    const contactInfo = contactRef.current.value
 
     if (error) return setError(error)
     
@@ -68,6 +76,8 @@ export function Account({ session }) {
       skill_level: skill_level,
       avatar_url: avatar,
       email: email,
+      bio: bio,
+      contact_information: contactInfo,
       updated_at: new Date()});
 
     if (upserterror) return setError(upserterror)
@@ -94,6 +104,11 @@ export function Account({ session }) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicText">
+              <Form.Label>Bio</Form.Label>
+              <Form.Control type="text" as="textarea" rows={5} defaultValue={bio} ref={bioRef} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
               <Form.Label>Avatar URL</Form.Label>
               <Form.Control type="text" defaultValue={avatar} ref={avatarRef} />
           </Form.Group>
@@ -106,6 +121,11 @@ export function Account({ session }) {
               <option value="4">Four</option>
               <option value="5">Five (Best)</option>
           </Form.Select>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Contact Information</Form.Label>
+                <Form.Control type="text" as="textarea" rows={5} defaultValue={contactInfo} ref={contactRef} />
+            </Form.Group>
 
           <Button variant="primary" type="submit">
           Submit

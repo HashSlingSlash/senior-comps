@@ -15,7 +15,7 @@ export function Profile(props) {
 
   return (
     <div className="profile-card">
-        <Card style={{ width: '18rem' }}>
+        <Card>
         <Card.Img variant="top" src={props.profile.avatar_url} />
         <Card.Body className="card-body">
             <Card.Title className="title">{props.profile.username}</Card.Title>

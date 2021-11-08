@@ -36,19 +36,26 @@ export function Bio() {
         <Header></Header>
         <Container>
             <Row>
+                <Col className="profile-card">
                 {profile ?
-                <Card className="profile-card">
+                <Card>
                     <Card.Img variant="top" src={profile.avatar_url} className="prof-img"/>
                     <Card.Body className="card-body">
                     <Card.Title className="title">{profile.username}</Card.Title>
                     <Card.Text>
-                    <p>Email Address: <span>{profile.email}</span></p>
+                        <h5>Bio:</h5>
+                        <p>{profile.bio}</p>
+                        <h5>Skill Level (1-5):</h5>
+                        <p>{profile.skill_level}</p>
+                        <h5>Contact Information:</h5>
+                        <p>{profile.contact_information}</p>
                     </Card.Text>
                 </Card.Body>
                 </Card>
                     :
                 <p>No Profile</p>
                 }
+                </Col>
             </Row>
         </Container>
     </div>

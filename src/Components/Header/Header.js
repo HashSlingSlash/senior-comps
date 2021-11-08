@@ -18,7 +18,7 @@ export function Header(){
         <Row>
         <Navbar bg="light" expand="lg" className="mb-3">
             <Container>
-                <Navbar.Brand href="/">Senior Comps</Navbar.Brand>
+                <Navbar.Brand href="/">Court Report</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
