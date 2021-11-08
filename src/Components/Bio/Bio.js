@@ -7,13 +7,18 @@ import { useAuth } from '../../Contexts/Auth'
 import { useHistory } from 'react-router'
 import { useParams } from 'react-router';
 import { Header } from '../Header/Header';
+import { SimpleCourt } from '../SimpleCourt/SimpleCourt';
 
 export function Bio() {
     let { userID } = useParams();
     const [profile, setProfile] = useState(null);
+    const [favCourts, setFavCourts] = useState(null);
+    const [distance, setDistance] = useState()
+    const [loading, setLoading] = useState()
 
     useEffect(() => {
         getProfile()
+        getFavorites()
     }, [])
 
     async function getProfile(){
@@ -28,6 +33,24 @@ export function Bio() {
 
         if(data){
             setProfile(data)
+        }
+    }
+
+    async function getFavorites(){
+        console.log(userID)
+        const { data, error } = await supabase
+        .from('profiles')
+        .select('favorite_courts[]')
+        .eq('id', userID)
+
+        if(data){
+            let courts = data[0].favorite_courts
+            if (courts.length > 0){
+                setFavCourts(courts)
+            }
+            else{
+                setFavCourts(null)
+            }
         }
     }
 
@@ -55,6 +78,13 @@ export function Bio() {
                     :
                 <p>No Profile</p>
                 }
+                <h2 className="mt-3">Favorite Courts:</h2>
+                {favCourts ?
+                favCourts.map(courtID => {
+                    return <SimpleCourt key={courtID} courtID={courtID} className="mb-2" />
+                  })
+                :
+                ""}
                 </Col>
             </Row>
         </Container>

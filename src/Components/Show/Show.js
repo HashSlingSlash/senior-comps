@@ -1,5 +1,5 @@
 import './Show.css'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from 'react'
 import { supabase } from '../../supabaseClient'
@@ -12,16 +12,22 @@ import { DisplayCheckIn } from '../DisplayCheckIn/DisplayCheckIn';
 
 export function Show() {
     let { courtID } = useParams();
+    const { user } = useAuth()
+    const history = useHistory()
+
     const [court, setCourt] = useState(null);
     const [reviews, setReviews] = useState(null);
     const [rating, setRating] = useState(null);
     const [ checkIns, setCheckIns ] = useState(null)
+    const [favCourts, setFavCourts] = useState([])
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         getCourt();
         getReviews();
         getRating();
         getCheckIns();
+        getFavorites();
     }, [])
 
     async function getCourt(){
@@ -91,6 +97,32 @@ export function Show() {
         }
       }
 
+    async function getFavorites(){
+        const { data, error } = await supabase
+        .from('profiles')
+        .select('favorite_courts[]')
+        .eq("id", user.id);
+
+        if(data){
+            setFavCourts(data[0].favorite_courts)
+        }
+    }
+    
+    async function saveFavorite(){
+
+        favCourts.push(courtID)
+
+        const { data, upserterror } = await supabase.from('profiles').upsert({
+            id: user.id,
+            favorite_courts: favCourts,
+            updated_at: new Date()});
+      
+          if (upserterror) return setError(upserterror)
+      
+          console.log(data)
+          history.push('/')
+    }
+
   return (
     <div className="show-court">
         <Header></Header>
@@ -106,6 +138,7 @@ export function Show() {
                     <p>Address: <span>{court.location}</span></p>
                     <Button variant="warning" href={"/reviews/" + courtID} className="review-button">Leave a Review</Button>
                     <Button variant="success" href={"/checkin/" + courtID} className="review-button">Check In Here</Button>
+                    <Button variant="primary" className="review-button" onClick={saveFavorite}>Save Favorite</Button>
                     </Card.Text>
                 </Card.Body>
                 </Card>
