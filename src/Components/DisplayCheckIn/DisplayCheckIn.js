@@ -23,10 +23,8 @@ export function DisplayCheckIn(props) {
       ":"+temp.getSeconds()
       setTime(temp)
     }
-  
-    // Convert 2019-09-12 09:52:52.992823+00 to
-  //         2019-09-12T09:52:52.992+00:00
-  // Assumes all strings are +00:00
+    
+  // Put Date and Time into readable format
   function rectifyFormat(s) {
     let b = s.split(/\D/);
     console.log(b)
